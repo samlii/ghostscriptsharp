@@ -6,13 +6,13 @@ using System.IO;
 namespace GhostscriptSharpTests
 {
     [TestFixture]
-    public class GhostscriptSharpTests
+    public class GhostscriptSharpJpgTests
     {
-        private readonly string TEST_FILE_LOCATION      = "test.pdf";
-        private readonly string SINGLE_FILE_LOCATION    = "output.jpg";
-        private readonly string MULTIPLE_FILE_LOCATION  = "output%d.jpg";
+        readonly string TEST_FILE_LOCATION      = "test.pdf";
+        readonly string SINGLE_FILE_LOCATION    = "output.jpg";
+        readonly string MULTIPLE_FILE_LOCATION  = "output%d.jpg";
 
-        private readonly int MULTIPLE_FILE_PAGE_COUNT = 10;
+        readonly int MULTIPLE_FILE_PAGE_COUNT = 10;
 
         [Test]
         public void GenerateSinglePageThumbnail()
