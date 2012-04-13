@@ -9,17 +9,19 @@ namespace GhostscriptSharp
 	/// </summary>
 	public class GhostscriptWrapper
 	{
-		#region Hooks into Ghostscript DLL
-		[DllImport("gsdll32.dll", EntryPoint = "gsapi_new_instance")]
+	    const string ghostScriptDll = "gsdll64.dll";
+
+	    #region Hooks into Ghostscript DLL
+		[DllImport(ghostScriptDll, EntryPoint = "gsapi_new_instance")]
 		private static extern int CreateAPIInstance(out IntPtr pinstance, IntPtr caller_handle);
 
-		[DllImport("gsdll32.dll", EntryPoint = "gsapi_init_with_args")]
+		[DllImport(ghostScriptDll, EntryPoint = "gsapi_init_with_args")]
 		private static extern int InitAPI(IntPtr instance, int argc, string[] argv);
 
-		[DllImport("gsdll32.dll", EntryPoint = "gsapi_exit")]
+		[DllImport(ghostScriptDll, EntryPoint = "gsapi_exit")]
 		private static extern int ExitAPI(IntPtr instance);
 
-		[DllImport("gsdll32.dll", EntryPoint = "gsapi_delete_instance")]
+		[DllImport(ghostScriptDll, EntryPoint = "gsapi_delete_instance")]
 		private static extern void DeleteAPIInstance(IntPtr instance);
 		#endregion
 
