@@ -9,7 +9,7 @@ namespace GhostscriptSharp
 	/// </summary>
 	public class GhostscriptWrapper
 	{
-	    const string ghostScriptDll = "gsdll64.dll";
+	    const string ghostScriptDll = "gsdll32.dll";
 
 	    #region Hooks into Ghostscript DLL
 		[DllImport(ghostScriptDll, EntryPoint = "gsapi_new_instance")]
