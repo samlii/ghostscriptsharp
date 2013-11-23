@@ -53,3 +53,5 @@ _ReSharper*/
 # Upgrades
 UpgradeLog.XML
 _UpgradeReport_Files
+packages/
+psake*/
