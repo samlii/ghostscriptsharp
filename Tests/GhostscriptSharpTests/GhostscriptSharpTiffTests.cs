@@ -14,7 +14,7 @@ namespace GhostscriptSharpTests
     {
         const string TEST_FILE_LOCATION = "test.pdf";
 
-        [Test]
+        [Test, RequiresSTAAttribute]
         public void ConvertToTif()
         {
             var destination = new FileInfo(Path.GetTempPath() + "test_ConvertToTif.tif");
