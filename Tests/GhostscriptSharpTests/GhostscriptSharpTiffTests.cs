@@ -9,7 +9,7 @@ using NUnit.Framework;
 namespace GhostscriptSharpTests
 {
     [TestFixture]
-    [UseReporter(typeof(FileLauncherReporter), typeof(ClipboardReporter))]
+    [UseReporter(typeof(FileLauncherReporter) /*, typeof(ClipboardReporter), typeof(WinMergeReporter)*/)] //always false because Tiff created on dates are different 
     public class GhostscriptSharpTiffTests
     {
         const string TEST_FILE_LOCATION = "test.pdf";
