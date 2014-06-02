@@ -1,4 +1,4 @@
 function Get-MoveGsDllString($toolsPath) {
 "
-if not exist `"`$(TargetDir)\gsdll32.dll`" xcopy /Y `"`$(ProjectDir)\Ghostscript\gsdll32.dll`" `"`$(TargetDir)`""
+PowerShell -NoProfile -ExecutionPolicy Bypass -Command `"ls '`$(SolutionDir)\packages\GhostScriptSharp.*\Tools\gsdll32.dll' | Sort -Descending | Select -First 1 | cp -Destination '`$(TargetDir)' `""
 }

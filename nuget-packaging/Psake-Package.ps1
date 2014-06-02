@@ -3,7 +3,6 @@ if(-not (Get-Command Invoke-Psake -ErrorAction SilentlyContinue)) {
     Write-Warning "In order to install run the following from this directory:"
     Write-Warning "nuget install"
     return
-
 }
 properties {
     $configuration     = 'Release'
@@ -16,18 +15,19 @@ properties {
     $gsDllDir          = "$solutionDir/ThirdParty"
 }
 
-task default -depends Build
+task default -depends Build,CreatePackage
 
-task Build -depends toProjectDir, msBuildClean {
+task Build -depends msBuildClean {
+    cd $projectDir
     Run-Msbuild ReBuild @{
         Configuration = "$configuration"
         OutDir        = $buildDir
     }
 }
-task CreatePackage -depends createWorkspace, copyContent, 
+task CreatePackage -depends createWorkspace, copyGhostscriptDll, 
                             copyTools, copyBinaries, copyNuspec, pack
-task toProjectDir { cd $projectDir }
-task msBuildClean -depends toProjectDir {
+task msBuildClean {
+    cd $projectDir
     Run-Msbuild Clean @{
         OutDir        = $buildDir        
     }   
@@ -37,16 +37,16 @@ task createWorkspace {
         rm $workspaceDir -Recurse -Force }
     mkdir $workspaceDir
 }
-task toWorkspaceDir { cd $workspaceDir}
-task copyContent -depends toWorkspaceDir {
-    mkdir Content
-    mkdir Content/Ghostscript
-    cp $gsDllDir/gsdll32.dll Content/Ghostscript/
+task copyGhostscriptDll -depends createWorkspace,copyTools {
+    cd $workspaceDir
+    cp $gsDllDir/gsdll32.dll Tools/
 }
-task copyTools -depends toWorkspaceDir {
+task copyTools -depends createWorkspace {
+    cd $workspaceDir
     cp $nugetPackagingDir/Tools . -Recurse
 }
-task copyBinaries -depends toWorkspaceDir {
+task copyBinaries -depends createWorkspace {
+    cd $workspaceDir
     mkdir lib
     mkdir lib/net40
     cp $buildDir/GhostscriptSharp.dll lib/net40
@@ -54,7 +54,8 @@ task copyBinaries -depends toWorkspaceDir {
 task copyNuspec {
     cp $nugetPackagingDir/GhostScriptSharp.nuspec $workspaceDir
 }
-task pack -depends toWorkspaceDir {
+task pack -depends createWorkspace {
+    cd $workspaceDir
     nuget pack
 }
 
