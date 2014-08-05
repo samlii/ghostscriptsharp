@@ -40,6 +40,7 @@ task createWorkspace {
 task copyGhostscriptDll -depends createWorkspace,copyTools {
     cd $workspaceDir
     cp $gsDllDir/gsdll32.dll Tools/
+    cp $gsDllDir/gsdll64.dll Tools/
 }
 task copyTools -depends createWorkspace {
     cd $workspaceDir
